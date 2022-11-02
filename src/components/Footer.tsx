@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export function Footer() {
   const StyledFooter = styled.footer`
+    font-size: 20px;
     position: fixed;
     padding: 0.25em 1em;
     bottom: 0;
