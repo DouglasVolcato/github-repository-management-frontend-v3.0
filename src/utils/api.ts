@@ -32,7 +32,6 @@ export class Api {
     );
     localStorage.setItem("userToken", response.data.token);
     localStorage.setItem("userId", response.data.userId);
-    console.log(response.data);
     return response.data;
   }
 
@@ -41,7 +40,6 @@ export class Api {
       baseUrl + "/user/create-user",
       userBody
     );
-    console.log(response.data);
     return response.data;
   }
 
@@ -49,15 +47,21 @@ export class Api {
     const response = await axios.get<Note[]>(
       baseUrl + "/repo/get-all-repository"
     );
-    console.log(response.data);
     return response.data;
   }
 
-  static async createNote(noteBody: Note) {
-    const response = await axios.post(
+  static async createNote(noteBody: Note): Promise<Note> {
+    const response = await axios.post<Note>(
       baseUrl + "/repo/create-repository",
       noteBody
     );
-    console.log(response);
+    return response.data;
+  }
+
+  static async deleteNote(noteName: string): Promise<Note> {
+    const response = await axios.delete<Note>(
+      baseUrl + "/repo/delete-repository/" + noteName
+    );
+    return response.data;
   }
 }

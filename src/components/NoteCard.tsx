@@ -1,3 +1,4 @@
+import { useClient } from "../hooks/useClient";
 import { Note } from "../protocols/note";
 import { Button } from "./Button";
 
@@ -6,6 +7,8 @@ interface Props {
 }
 
 export function NoteCard({ noteBody }: Props) {
+  const { deleteNote } = useClient();
+
   const divStyles = {
     border: "solid 5px blue",
     padding: "5px",
@@ -18,6 +21,7 @@ export function NoteCard({ noteBody }: Props) {
   const pStyles = {
     margin: "5px",
     backgroundColor: "#686868",
+    fontSize: "15px",
   };
   const cardDivStyles = {
     backgroundColor: "#686868",
@@ -37,7 +41,7 @@ export function NoteCard({ noteBody }: Props) {
         />
         <Button
           name={"Delete"}
-          onClickFunctions={[() => alert("Test_Delete")]}
+          onClickFunctions={[() => deleteNote(noteBody.name)]}
         />
         <Button name={"Edit"} onClickFunctions={[() => alert("Test_edit")]} />
       </div>

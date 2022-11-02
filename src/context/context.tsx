@@ -9,6 +9,7 @@ interface ContextProps {
   addNote: (noteBody: Note) => void;
   getNotes: () => Note[];
   addAllNotes: () => void;
+  deleteNote: (noteName: string) => void;
 }
 
 const defaultValue = {
@@ -17,6 +18,7 @@ const defaultValue = {
   addNote: (noteBody: Note) => {},
   getNotes: () => [],
   addAllNotes: () => {},
+  deleteNote: (noteName: string) => {},
 };
 
 export const ClientContext = createContext<ContextProps>(defaultValue);
@@ -67,6 +69,18 @@ export function ClientProvider({ children }: Props) {
     return client.notes;
   }
 
+  async function deleteNote(noteName: string) {
+    const updatedNoteList = client.notes.filter(
+      (note) => note.name !== noteName
+    );
+    setClient({ ...client, notes: updatedNoteList });
+    await Api.deleteNote(noteName);
+    setTimeout(async () => {
+      const updatedNotes = await Api.getAllNotes();
+      setClient({ ...client, notes: updatedNotes });
+    }, 3000);
+  }
+
   return (
     <ClientContext.Provider
       value={{
@@ -75,6 +89,7 @@ export function ClientProvider({ children }: Props) {
         addNote,
         getNotes,
         addAllNotes,
+        deleteNote,
       }}
     >
       {children}
