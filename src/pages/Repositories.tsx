@@ -1,3 +1,9 @@
+import { PageTitle } from "../components/PageTitle";
+
 export function Repositories() {
-  return <div>Repositories</div>;
+  return (
+    <div>
+      <PageTitle name={"Repositories"} />
+    </div>
+  );
 }
