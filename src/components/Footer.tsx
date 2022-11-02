@@ -1,18 +1,16 @@
-import styled from "styled-components";
-
 export function Footer() {
-  const StyledFooter = styled.footer`
-    font-size: 20px;
-    position: fixed;
-    padding: 0.25em 1em;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-    width: 100%;
-    background-color: blue;
-    color: white;
-    font-weight: bold;
-  `;
+  const footerStyles = {
+    fontSize: "20px",
+    position: "fixed" as "fixed",
+    padding: "0.25em 1em",
+    bottom: "0",
+    left: "0",
+    textAlign: "center" as "center",
+    width: "100%",
+    backgroundColor: "blue",
+    color: "white",
+    fontWeight: "bold",
+  };
 
-  return <StyledFooter>Made by Douglas Volcato</StyledFooter>;
+  return <footer style={footerStyles}>Made by Douglas Volcato</footer>;
 }

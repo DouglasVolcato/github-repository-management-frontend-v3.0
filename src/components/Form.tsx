@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Button } from "./Button";
 
 interface Props {
@@ -17,36 +16,37 @@ export function Form({
   const fields = Object.keys(state);
   const modifiedState = state;
 
-  const StyledForm = styled.form`
-    margin: auto;
-    padding: 10px;
-    width: fit-content;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    flex-direction: column;
-    max-width: 98%;
-  `;
-  const StyledInput = styled.input`
-    width: 280px;
-    background-color: #464646;
-    color: white;
-    max-width: 98%;
-    margin: 5px;
-    box-shadow: 1px 2px 2px 1px #353535;
-  `;
-  const StyledLabel = styled.label`
-    color: white;
-    font-weight: bold;
-  `;
+  const formStyles = {
+    margin: "auto",
+    padding: "10px",
+    width: "fit-content",
+    display: "flex",
+    flexWrap: "wrap" as "wrap",
+    justifyContent: "center",
+    flexDirection: "column" as "column",
+    maxWidth: "98%",
+  };
+  const inputStyles = {
+    width: "280px",
+    backgroundColor: "#464646",
+    color: "white",
+    maxWidth: "98%",
+    margin: "5px",
+    boxShadow: "1px 2px 2px 1px #353535",
+  };
+  const labelStyles = {
+    color: "white",
+    fontWeight: "bold",
+  };
 
   return (
-    <StyledForm>
+    <form style={formStyles}>
       <>
         {fields.map((field) => (
           <>
-            <StyledLabel>{field}</StyledLabel>
-            <StyledInput
+            <label style={labelStyles}>{field}</label>
+            <input
+              style={inputStyles}
               onChange={async (event) => {
                 modifiedState[field] = event.target.value;
                 setStateFunction(modifiedState);
@@ -56,6 +56,6 @@ export function Form({
         ))}
         <Button name={buttonName} onClickFunctions={[() => buttonFunction()]} />
       </>
-    </StyledForm>
+    </form>
   );
 }

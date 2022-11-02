@@ -1,20 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { Button } from "./Button";
 
 export function Header() {
   const navigate = useNavigate();
 
-  const StyledHeader = styled.header`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    width: 100%;
-    background-color: blue;
-  `;
+  const headerStyles = {
+    display: "flex",
+    flexWrap: "wrap" as "wrap",
+    justifyContent: "space-evenly",
+    width: "100%",
+    backgroundColor: "blue",
+  };
 
   return (
-    <StyledHeader className="Header">
+    <header style={headerStyles} className="Header">
       <Button name="Login" onClickFunctions={[() => navigate("/")]} />
       <Button
         name="Register"
@@ -25,6 +24,6 @@ export function Header() {
         name="Repositories"
         onClickFunctions={[() => navigate("/repositories")]}
       />
-    </StyledHeader>
+    </header>
   );
 }

@@ -1,6 +1,5 @@
 import { Form } from "../components/Form";
 import { useState } from "react";
-import { CardBody } from "../components/CardBody";
 import { PageTitle } from "../components/PageTitle";
 import { RepositoryCard } from "../components/RepositoryCard";
 import { useClient } from "../hooks/useClient";
@@ -16,7 +15,6 @@ export function Repositories() {
   return (
     <div className="Repositories">
       <PageTitle name={"Repositories"} />
-
       <Form
         state={searchParams}
         setStateFunction={() => setSearchParams}
@@ -27,8 +25,13 @@ export function Repositories() {
           }
         }}
       />
-
-      <CardBody>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          flexWrap: "wrap",
+        }}
+      >
         {getRepositories().map((item: Repository) => {
           if (searchParams.Repository !== "") {
             if (
@@ -55,7 +58,7 @@ export function Repositories() {
             );
           }
         })}
-      </CardBody>
+      </div>
     </div>
   );
 }

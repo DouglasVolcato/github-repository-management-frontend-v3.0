@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { useState } from "react";
 
 interface Props {
   name: string;
@@ -6,25 +6,27 @@ interface Props {
 }
 
 export function Button({ name, onClickFunctions }: Props) {
-  const StyledButton = styled.button`
-    font-size: 15px;
-    margin: 5px;
-    padding: 0.25em 1em;
-    border: 2px solid #0edfdf;
-    border-radius: 3px;
-    color: white;
-    font-weight: bold;
-    background-color: #04810f;
-    width: fit-content;
-    cursor: pointer;
-    box-shadow: 1px 2px 2px 1px #353535;
-    &:hover {
-      background-color: #dfca0e;
-    }
-  `;
+  const [hover, setHover] = useState(false);
+
+  const buttonStyles = {
+    fontSize: "15px",
+    margin: "5px",
+    padding: "0.25em 1em",
+    border: "2px solid #0edfdf",
+    borderRadius: "3px",
+    color: hover ? "black" : "white",
+    fontWeight: "bold",
+    backgroundColor: hover ? "#d4eb0a" : "#04810f",
+    width: "fit-content",
+    cursor: "pointer",
+    boxShadow: "1px 2px 2px 1px #353535",
+  };
 
   return (
-    <StyledButton
+    <button
+      style={buttonStyles}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       onClick={(event) => {
         event.preventDefault();
         onClickFunctions.map((item) => {
@@ -33,6 +35,6 @@ export function Button({ name, onClickFunctions }: Props) {
       }}
     >
       {name}
-    </StyledButton>
+    </button>
   );
 }

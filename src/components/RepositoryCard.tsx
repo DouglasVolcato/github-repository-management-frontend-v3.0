@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Button } from "./Button";
 
 interface Props {
@@ -9,32 +8,32 @@ interface Props {
 }
 
 export function RepositoryCard({ id, name, html_url, addNoteFunction }: Props) {
-  const StyledDiv = styled.div`
-    background-color: #8bdd08;
-    width: 250px;
-    margin: 10px;
-    padding: 5px;
-    border: solid 5px blue;
-  `;
-  const StyledP = styled.p`
-    background-color: #8bdd08;
-    margin: 5px;
-    font-size: 18px;
-    font-weight: ${(props: any) => (props.id ? "normal" : "bold")};
-    text-align: center;
-  `;
-  const StyledButtonsDiv = styled.div`
-    background-color: #8bdd08;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-  `;
+  const divStyles = {
+    backgroundColor: "#8bdd08",
+    width: "250px",
+    margin: " 10px",
+    padding: "5px",
+    border: "solid 5px blue",
+  };
+  const pStyles = {
+    backgroundColor: "#8bdd08",
+    margin: "5px",
+    fontSize: "18px",
+    textAlign: "center" as "center",
+    fontWeight: "bold",
+  };
+  const buttonsDivStyles = {
+    backgroundColor: "#8bdd08",
+    display: "flex",
+    justifyContent: "space-evenly",
+    flexWrap: "wrap" as "wrap",
+  };
 
   return (
-    <StyledDiv>
-      <StyledP>ID: {id}</StyledP>
-      <StyledP>{name}</StyledP>
-      <StyledButtonsDiv>
+    <div style={divStyles}>
+      <p style={pStyles}>ID: {id}</p>
+      <p style={pStyles}>{name}</p>
+      <div style={buttonsDivStyles}>
         <Button
           name={"Access"}
           onClickFunctions={[() => window.open(html_url)]}
@@ -50,7 +49,7 @@ export function RepositoryCard({ id, name, html_url, addNoteFunction }: Props) {
               }),
           ]}
         />
-      </StyledButtonsDiv>
-    </StyledDiv>
+      </div>
+    </div>
   );
 }
