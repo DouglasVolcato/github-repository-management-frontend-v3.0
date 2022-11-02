@@ -33,6 +33,7 @@ export function Form({
     maxWidth: "80vw",
     margin: "5px",
     boxShadow: "1px 2px 2px 1px #353535",
+    padding: "5px",
   };
   const labelStyles = {
     color: "white",
