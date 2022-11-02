@@ -4,3 +4,7 @@
     box-sizing: border-box;
     background-color: rgb(1, 146, 44);
 }
+
+html{
+    padding-bottom: 80px;
+}
