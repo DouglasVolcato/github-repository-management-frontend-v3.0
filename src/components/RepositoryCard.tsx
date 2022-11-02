@@ -1,13 +1,21 @@
+import { Note } from "../protocols/note";
 import { Button } from "./Button";
 
 interface Props {
   id: string;
   name: string;
   html_url: string;
-  addNoteFunction: (param: any) => void;
+  addNoteFunction: (noteBody: Note) => void;
+  index: number;
 }
 
-export function RepositoryCard({ id, name, html_url, addNoteFunction }: Props) {
+export function RepositoryCard({
+  id,
+  name,
+  html_url,
+  addNoteFunction,
+  index,
+}: Props) {
   const divStyles = {
     backgroundColor: "#8bdd08",
     width: "250px",
@@ -30,7 +38,7 @@ export function RepositoryCard({ id, name, html_url, addNoteFunction }: Props) {
   };
 
   return (
-    <div style={divStyles}>
+    <div style={divStyles} key={index}>
       <p style={pStyles}>ID: {id}</p>
       <p style={pStyles}>{name}</p>
       <div style={buttonsDivStyles}>
@@ -43,9 +51,8 @@ export function RepositoryCard({ id, name, html_url, addNoteFunction }: Props) {
           onClickFunctions={[
             () =>
               addNoteFunction({
-                id,
                 name,
-                html_url,
+                link: html_url,
               }),
           ]}
         />
