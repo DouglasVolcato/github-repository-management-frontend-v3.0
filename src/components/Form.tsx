@@ -3,7 +3,7 @@ import { Button } from "./Button";
 
 interface Props {
   state: any;
-  setStateFunction: any;
+  setStateFunction: (param: any) => void;
   buttonName: string;
   buttonFunction: () => void;
 }
