@@ -4,13 +4,26 @@ import { PageTitle } from "../components/PageTitle";
 import { RepositoryCard } from "../components/RepositoryCard";
 import { useClient } from "../hooks/useClient";
 import { Repository } from "../protocols/repository";
+import { Note } from "../protocols/note";
+import { CardBody } from "../components/CardBody";
 
 export function Repositories() {
+  const { addNote } = useClient();
   const { addRepositories, getRepositories } = useClient();
   const [searchParams, setSearchParams] = useState({
     Username: "",
     Repository: "",
   });
+
+  async function createNote(noteBody: Note) {
+    addNote({
+      name: noteBody.name,
+      link: noteBody.link,
+      priority: "Low",
+      deadline: new Date().toISOString().slice(0, 10),
+      note: "Empty",
+    });
+  }
 
   return (
     <div className="Repositories">
@@ -25,14 +38,8 @@ export function Repositories() {
           }
         }}
       />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          flexWrap: "wrap",
-        }}
-      >
-        {getRepositories().map((item: Repository) => {
+      <CardBody>
+        {getRepositories().map((item: Repository, index: number) => {
           if (searchParams.Repository !== "") {
             if (
               item.id.toString().includes(searchParams.Repository) ||
@@ -40,25 +47,27 @@ export function Repositories() {
             ) {
               return (
                 <RepositoryCard
+                  index={index}
                   id={item.id}
                   name={item.name}
                   html_url={item.html_url}
-                  addNoteFunction={() => alert("teste!!!")}
+                  addNoteFunction={createNote}
                 />
               );
             }
           } else {
             return (
               <RepositoryCard
+                index={index}
                 id={item.id}
                 name={item.name}
                 html_url={item.html_url}
-                addNoteFunction={() => alert("teste!!!")}
+                addNoteFunction={createNote}
               />
             );
           }
         })}
-      </div>
+      </CardBody>
     </div>
   );
 }

@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "../components/Form";
 import { PageTitle } from "../components/PageTitle";
+import { useClient } from "../hooks/useClient";
+import { LoginUserBody } from "../protocols/loginUserBody";
+import { Api } from "../utils/api";
 
 export function Login() {
-  const [loginInfo, setLoginInfo] = useState({
-    Email: "",
-    Password: "",
+  const { addAllNotes } = useClient();
+  const [loginInfo, setLoginInfo] = useState<LoginUserBody>({
+    email: "",
+    password: "",
   });
 
-  function makeLogin() {
-    alert(loginInfo.Email + " " + loginInfo.Password);
+  async function makeLogin() {
+    await Api.makeLogin(loginInfo);
   }
+
+  useEffect(() => {
+    addAllNotes();
+  }, []);
 
   return (
     <div className="Login">
