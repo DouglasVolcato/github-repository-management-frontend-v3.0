@@ -17,6 +17,7 @@ export function Button({ name, onClickFunctions }: Props) {
     background-color: #04810f;
     width: fit-content;
     cursor: pointer;
+    box-shadow: 1px 2px 2px 1px #353535;
     &:hover {
       background-color: #dfca0e;
     }

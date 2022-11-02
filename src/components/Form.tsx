@@ -33,6 +33,7 @@ export function Form({
     color: white;
     max-width: 98%;
     margin: 5px;
+    box-shadow: 1px 2px 2px 1px #353535;
   `;
   const StyledLabel = styled.label`
     color: white;
