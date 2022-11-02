@@ -23,8 +23,8 @@ export function Register() {
   }
 
   return (
-    <div className="Login">
-      <PageTitle name={"Login"} />
+    <div className="Register">
+      <PageTitle name={"Register"} />
       <Form
         state={registrationInfo}
         setStateFunction={setRegistrationInfo}
