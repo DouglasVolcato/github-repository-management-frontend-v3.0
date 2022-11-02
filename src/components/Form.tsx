@@ -37,6 +37,7 @@ export function Form({
   `;
   const StyledLabel = styled.label`
     color: white;
+    font-weight: bold;
   `;
 
   return (

@@ -6,9 +6,6 @@ export function Header() {
   const navigate = useNavigate();
 
   const StyledHeader = styled.header`
-    /* position: fixed;
-    left: 0;
-    top: 0; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;

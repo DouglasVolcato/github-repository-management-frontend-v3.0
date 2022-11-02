@@ -6,7 +6,7 @@ interface Props {
 
 export function PageTitle({ name }: Props) {
   const StyledTitle = styled.h1`
-    color: #d4f806;
+    color: #ffffff;
     width: 100%;
     text-align: center;
     padding: 30px 10px 10px 10px;
