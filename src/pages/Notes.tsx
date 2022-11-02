@@ -1,3 +1,9 @@
+import { PageTitle } from "../components/PageTitle";
+
 export function Notes() {
-  return <div>Notes</div>;
+  return (
+    <div>
+      <PageTitle name={"Notes"} />
+    </div>
+  );
 }
