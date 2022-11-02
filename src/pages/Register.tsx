@@ -1,25 +1,18 @@
 import { useState } from "react";
 import { Form } from "../components/Form";
 import { PageTitle } from "../components/PageTitle";
+import { Api } from "../utils/api";
 
 export function Register() {
   const [registrationInfo, setRegistrationInfo] = useState({
-    Name: "",
-    Email: "",
-    Password: "",
-    Image: "",
+    name: "",
+    email: "",
+    password: "",
+    photo: "",
   });
 
-  function registrate() {
-    alert(
-      registrationInfo.Name +
-        " " +
-        registrationInfo.Email +
-        " " +
-        registrationInfo.Password +
-        " " +
-        registrationInfo.Image
-    );
+  async function registrate() {
+    await Api.makeRegistration(registrationInfo);
   }
 
   return (
