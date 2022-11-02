@@ -16,7 +16,6 @@ export function Repositories() {
   return (
     <div className="Repositories">
       <PageTitle name={"Repositories"} />
-
       <Form
         state={searchParams}
         setStateFunction={() => setSearchParams}
@@ -27,8 +26,13 @@ export function Repositories() {
           }
         }}
       />
-
-      <CardBody>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          flexWrap: "wrap",
+        }}
+      >
         {getRepositories().map((item: Repository) => {
           if (searchParams.Repository !== "") {
             if (
@@ -55,7 +59,7 @@ export function Repositories() {
             );
           }
         })}
-      </CardBody>
+      </div>
     </div>
   );
 }
