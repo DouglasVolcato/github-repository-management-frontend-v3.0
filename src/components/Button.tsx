@@ -26,9 +26,9 @@ export function Button({ name, onClickFunctions }: Props) {
     <StyledButton
       onClick={(event) => {
         event.preventDefault();
-        for (const item of onClickFunctions) {
+        onClickFunctions.map((item) => {
           item();
-        }
+        });
       }}
     >
       {name}
