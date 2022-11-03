@@ -6,6 +6,7 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { ClientProvider } from "./context/context";
 import { Login } from "./pages/Login";
+import { NoteEdition } from "./pages/NoteEdition";
 import { Notes } from "./pages/Notes";
 import { Register } from "./pages/Register";
 import { Repositories } from "./pages/Repositories";
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Route path="/register" element={<Register />} />
             <Route path="/notes" element={<Notes />} />
             <Route path="/repositories" element={<Repositories />} />
+            <Route path="/note-edition/:noteName" element={<NoteEdition />} />
           </Routes>
           <Footer />
         </BrowserRouter>
