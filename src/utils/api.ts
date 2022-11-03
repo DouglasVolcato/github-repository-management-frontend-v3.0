@@ -35,12 +35,26 @@ export class Api {
     return response.data;
   }
 
-  static async makeRegistration(userBody: RegisterUserBody): Promise<User> {
-    const response = await axios.post<User>(
-      baseUrl + "/user/create-user",
-      userBody
-    );
-    return response.data;
+  static async makeRegistration(
+    userBody: RegisterUserBody
+  ): Promise<User | null> {
+    try {
+      const response = await axios.post<User>(
+        baseUrl + "/user/create-user",
+        userBody
+      );
+      if (response.status === 200) {
+        alert("Successfully registered!");
+      }
+      return response.data;
+    } catch (err) {
+      if (userBody.password.length < 7) {
+        alert("The password must have, at least, 6 characters.");
+      } else {
+        alert("Email already registered.");
+      }
+      return null;
+    }
   }
 
   static async getAllNotes(): Promise<Note[]> {
@@ -62,6 +76,18 @@ export class Api {
     const response = await axios.delete<Note>(
       baseUrl + "/repo/delete-repository/" + noteName
     );
+    return response.data;
+  }
+
+  static async editNote(
+    noteName: string | undefined,
+    noteBody: Note | undefined
+  ): Promise<Note> {
+    const response = await axios.put<Note>(
+      baseUrl + "/repo/update-repository/" + noteName,
+      noteBody
+    );
+    console.log(response);
     return response.data;
   }
 }
