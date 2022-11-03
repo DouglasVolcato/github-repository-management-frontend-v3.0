@@ -59,10 +59,7 @@ export function ClientProvider({ children }: Props) {
       notes: [...client.notes, noteBody],
     });
     await Api.createNote(noteBody);
-    setTimeout(async () => {
-      const updatedNotes = await Api.getAllNotes();
-      setClient({ ...client, notes: updatedNotes });
-    }, 3000);
+    apiNotesSync();
   }
 
   async function addAllNotes() {
@@ -83,10 +80,7 @@ export function ClientProvider({ children }: Props) {
     );
     setClient({ ...client, notes: updatedNoteList });
     await Api.deleteNote(noteName);
-    setTimeout(async () => {
-      const updatedNotes = await Api.getAllNotes();
-      setClient({ ...client, notes: updatedNotes });
-    }, 5000);
+    apiNotesSync();
   }
 
   async function editNote(
@@ -103,10 +97,7 @@ export function ClientProvider({ children }: Props) {
     });
     setClient({ ...client, notes: updatedNoteList });
     const response = await Api.editNote(noteName, noteBody);
-    setTimeout(async () => {
-      const updatedNotes = await Api.getAllNotes();
-      setClient({ ...client, notes: updatedNotes });
-    }, 5000);
+    apiNotesSync();
     return response;
   }
 
@@ -136,6 +127,14 @@ export function ClientProvider({ children }: Props) {
       return false;
     }
     return true;
+  }
+
+  function apiNotesSync() {
+    setTimeout(() => {
+      Api.getAllNotes().then((updatedNotes) =>
+        setClient({ ...client, notes: updatedNotes })
+      );
+    }, 3000);
   }
 
   return (
