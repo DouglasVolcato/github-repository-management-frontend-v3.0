@@ -14,7 +14,7 @@ export function Form({
   buttonFunction,
 }: Props) {
   const fields = Object.keys(state);
-  const modifiedState = state;
+  const modifiedState = { ...state };
 
   const formStyles = {
     margin: "auto",
@@ -40,20 +40,61 @@ export function Form({
     fontWeight: "bold",
   };
 
+  function setFirstLetterToUpperCase(text: string) {
+    return text.replace(/^[a-z]/, text[0].toUpperCase());
+  }
+
+  function setInputType(field: string) {
+    if (field === "deadline") {
+      return "date";
+    } else {
+      return "text";
+    }
+  }
+
   return (
     <form style={formStyles}>
       <>
         {fields.map((field, key) => (
           <div key={key}>
-            <label style={labelStyles}>{field}</label>
+            <label style={labelStyles}>
+              {setFirstLetterToUpperCase(field)}
+            </label>
             <br />
-            <input
-              style={inputStyles}
-              onChange={async (event) => {
-                modifiedState[field] = event.target.value;
-                setStateFunction(modifiedState);
-              }}
-            />
+            {field === "note" ? (
+              <textarea
+                rows={5}
+                value={modifiedState[field]}
+                style={inputStyles}
+                onChange={async (event) => {
+                  modifiedState[field] = event.target.value;
+                  setStateFunction(modifiedState);
+                }}
+              />
+            ) : field === "priority" ? (
+              <select
+                value={modifiedState[field]}
+                style={inputStyles}
+                onChange={async (event) => {
+                  modifiedState[field] = event.target.value;
+                  setStateFunction(modifiedState);
+                }}
+              >
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            ) : (
+              <input
+                type={setInputType(field)}
+                value={modifiedState[field]}
+                style={inputStyles}
+                onChange={async (event) => {
+                  modifiedState[field] = event.target.value;
+                  setStateFunction(modifiedState);
+                }}
+              />
+            )}
           </div>
         ))}
         <Button name={buttonName} onClickFunctions={[() => buttonFunction()]} />
