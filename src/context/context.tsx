@@ -10,6 +10,7 @@ interface ContextProps {
   getNotes: () => Note[];
   addAllNotes: () => void;
   deleteNote: (noteName: string) => void;
+  editNote: (noteName: string | undefined, noteBody: Note | any) => void;
 }
 
 const defaultValue = {
@@ -19,6 +20,7 @@ const defaultValue = {
   getNotes: () => [],
   addAllNotes: () => {},
   deleteNote: (noteName: string) => {},
+  editNote: (noteName: string | undefined, noteBody: Note | any) => {},
 };
 
 export const ClientContext = createContext<ContextProps>(defaultValue);
@@ -39,16 +41,19 @@ export function ClientProvider({ children }: Props) {
   });
 
   async function addRepositories(userName: string) {
+    offlineChecker();
     const foundRepositories = await Api.getGithubRepositories(userName);
 
     setClient({ ...client, repositories: foundRepositories });
   }
 
   function getRepositories() {
+    offlineChecker();
     return client.repositories;
   }
 
   async function addNote(noteBody: Note) {
+    offlineChecker();
     setClient({
       ...client,
       notes: [...client.notes, noteBody],
@@ -61,15 +66,18 @@ export function ClientProvider({ children }: Props) {
   }
 
   async function addAllNotes() {
+    offlineChecker();
     const response = await Api.getAllNotes();
     setClient({ ...client, notes: response });
   }
 
   function getNotes() {
-    return client.notes;
+    offlineChecker();
+    return sortFunction(client.notes);
   }
 
   async function deleteNote(noteName: string) {
+    offlineChecker();
     const updatedNoteList = client.notes.filter(
       (note) => note.name !== noteName
     );
@@ -78,7 +86,56 @@ export function ClientProvider({ children }: Props) {
     setTimeout(async () => {
       const updatedNotes = await Api.getAllNotes();
       setClient({ ...client, notes: updatedNotes });
-    }, 3000);
+    }, 5000);
+  }
+
+  async function editNote(
+    noteName: string | undefined,
+    noteBody: Note | undefined
+  ) {
+    offlineChecker();
+    const updatedNoteList = client.notes.map((note) => {
+      if (note.name === noteName) {
+        return Object.assign(note, noteBody);
+      } else {
+        return note;
+      }
+    });
+    setClient({ ...client, notes: updatedNoteList });
+    const response = await Api.editNote(noteName, noteBody);
+    setTimeout(async () => {
+      const updatedNotes = await Api.getAllNotes();
+      setClient({ ...client, notes: updatedNotes });
+    }, 5000);
+    return response;
+  }
+
+  function sortFunction(arr: any) {
+    const priorityHigh = arr
+      .filter((i: any) => i.priority === "High")
+      .sort((a: any, b: any) => {
+        return a.deadline > b.deadline ? 1 : a.deadline === b.deadline ? 0 : -1;
+      });
+    const priorityMedium = arr
+      .filter((i: any) => i.priority === "Medium")
+      .sort((a: any, b: any) => {
+        return a.deadline > b.deadline ? 1 : a.deadline === b.deadline ? 0 : -1;
+      });
+    const priorityLow = arr
+      .filter((i: any) => i.priority === "Low")
+      .sort((a: any, b: any) => {
+        return a.deadline > b.deadline ? 1 : a.deadline === b.deadline ? 0 : -1;
+      });
+
+    return priorityHigh.concat(priorityMedium).concat(priorityLow);
+  }
+
+  function offlineChecker() {
+    if (!window.navigator.onLine) {
+      alert("You are offline.");
+      return false;
+    }
+    return true;
   }
 
   return (
@@ -90,6 +147,7 @@ export function ClientProvider({ children }: Props) {
         getNotes,
         addAllNotes,
         deleteNote,
+        editNote,
       }}
     >
       {children}
