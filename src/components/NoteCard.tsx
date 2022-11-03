@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useClient } from "../hooks/useClient";
 import { Note } from "../protocols/note";
 import { Button } from "./Button";
@@ -8,6 +9,17 @@ interface Props {
 
 export function NoteCard({ noteBody }: Props) {
   const { deleteNote } = useClient();
+  const navigate = useNavigate();
+
+  function setColor() {
+    if (noteBody.priority === "Low") {
+      return "#505050";
+    } else if (noteBody.priority === "Medium") {
+      return "#799904";
+    } else if (noteBody.priority === "High") {
+      return "#960000";
+    }
+  }
 
   const divStyles = {
     border: "solid 5px blue",
@@ -16,15 +28,16 @@ export function NoteCard({ noteBody }: Props) {
     textAlign: "center" as "center",
     color: "#d8d6d6",
     fontWeight: "bold",
-    backgroundColor: "#686868",
+    backgroundColor: setColor(),
+    width: "300px",
   };
   const pStyles = {
     margin: "5px",
-    backgroundColor: "#686868",
+    backgroundColor: setColor(),
     fontSize: "15px",
   };
   const cardDivStyles = {
-    backgroundColor: "#686868",
+    backgroundColor: setColor(),
   };
 
   return (
@@ -43,7 +56,10 @@ export function NoteCard({ noteBody }: Props) {
           name={"Delete"}
           onClickFunctions={[() => deleteNote(noteBody.name)]}
         />
-        <Button name={"Edit"} onClickFunctions={[() => alert("Test_edit")]} />
+        <Button
+          name={"Edit"}
+          onClickFunctions={[() => navigate("/note-edition/" + noteBody.name)]}
+        />
       </div>
     </div>
   );
