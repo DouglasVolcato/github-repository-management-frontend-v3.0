@@ -30,7 +30,7 @@ export function Repositories() {
       <PageTitle name={"Repositories"} />
       <Form
         state={searchParams}
-        setStateFunction={() => setSearchParams}
+        setStateFunction={setSearchParams}
         buttonName={"Search"}
         buttonFunction={() => {
           if (searchParams.Username !== "") {
