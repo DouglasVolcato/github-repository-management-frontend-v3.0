@@ -4,4 +4,5 @@ export interface Note {
   priority?: string;
   deadline?: string;
   note?: string;
+  _id?: string;
 }
