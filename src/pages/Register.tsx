@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form } from "../components/Form";
 import { PageTitle } from "../components/PageTitle";
+import { UserImage } from "../components/UserImage";
 import { Api } from "../utils/api";
 
 export function Register() {
@@ -24,6 +25,7 @@ export function Register() {
         buttonName={"Submit"}
         buttonFunction={() => registrate()}
       />
+      {registrationInfo.photo && <UserImage link={registrationInfo.photo} />}
     </div>
   );
 }
