@@ -4,6 +4,7 @@ import { Note } from "../protocols/note";
 import { RegisterUserBody } from "../protocols/registerUserBody";
 import { Repository } from "../protocols/repository";
 import { User } from "../protocols/user";
+import { UserPreviewBody } from "../protocols/userPreviewBody";
 
 const githubBaseUrl = "https://api.github.com/users/";
 const baseUrl = "https://repository-management.herokuapp.com";
@@ -58,10 +59,14 @@ export class Api {
   }
 
   static async getAllNotes(): Promise<Note[]> {
-    const response = await axios.get<Note[]>(
-      baseUrl + "/repo/get-all-repository"
-    );
-    return response.data;
+    try {
+      const response = await axios.get<Note[]>(
+        baseUrl + "/repo/get-all-repository"
+      );
+      return response.data;
+    } catch (error) {
+      return [];
+    }
   }
 
   static async createNote(noteBody: Note): Promise<Note> {
@@ -87,7 +92,31 @@ export class Api {
       baseUrl + "/repo/update-repository/" + noteName,
       noteBody
     );
-    console.log(response);
+    return response.data;
+  }
+
+  static async getUserById(): Promise<UserPreviewBody> {
+    const id = localStorage.getItem("userId");
+    const response = await axios.get<UserPreviewBody>(
+      baseUrl + "/user/get-by-id-user/" + id
+    );
+    return response.data;
+  }
+
+  static async deleteUser(): Promise<UserPreviewBody> {
+    const response = await axios.delete<UserPreviewBody>(
+      baseUrl + "/user/delete-user/"
+    );
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userToken");
+    return response.data;
+  }
+
+  static async editUser(userBody: UserPreviewBody): Promise<UserPreviewBody> {
+    const response = await axios.put<UserPreviewBody>(
+      baseUrl + "/user/update-user/",
+      userBody
+    );
     return response.data;
   }
 }
