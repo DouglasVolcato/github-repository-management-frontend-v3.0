@@ -1,19 +1,11 @@
 import axios from "axios";
-import { ReactNode, useEffect } from "react";
-import { useClient } from "../hooks/useClient";
+import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
 }
 
 export function AxiosInterceptor({ children }: Props) {
-  const { addAllNotes, setLoggedUser } = useClient();
-
-  useEffect(() => {
-    setLoggedUser();
-    addAllNotes();
-  }, []);
-
   axios.interceptors.request.use(
     (config: any) => {
       const token = localStorage.getItem("userToken");
