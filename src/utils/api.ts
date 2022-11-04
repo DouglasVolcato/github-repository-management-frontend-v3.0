@@ -3,6 +3,7 @@ import { LoginUserBody } from "../protocols/loginUserBody";
 import { Note } from "../protocols/note";
 import { RegisterUserBody } from "../protocols/registerUserBody";
 import { Repository } from "../protocols/repository";
+import { SecurityKey } from "../protocols/securityKeys";
 import { User } from "../protocols/user";
 import { UserPreviewBody } from "../protocols/userPreviewBody";
 
@@ -128,5 +129,63 @@ export class Api {
       userBody
     );
     return response.data;
+  }
+
+  static async createSecurityKeys(
+    userEmail: string,
+    keys: SecurityKey[]
+  ): Promise<boolean> {
+    const response = await axios
+      .post(baseUrl + "/security/create-security-keys", {
+        email: userEmail,
+        keys,
+      })
+      .then((data) => data.data);
+
+    try {
+      if (response.message.includes("Security keys already registered")) {
+        alert("Security keys already registered.");
+        return false;
+      } else {
+        return true;
+      }
+    } catch (err) {
+      alert("Security keys created.");
+      return true;
+    }
+  }
+
+  static async getKeyReferences(userEmail: string): Promise<string[]> {
+    const response = await axios.post<string[]>(
+      baseUrl + "/security/get-security-key-references",
+      { email: userEmail }
+    );
+    return response.data;
+  }
+
+  static async passwordRecovery(
+    userEmail: string,
+    newPassword: string,
+    keys: string[]
+  ): Promise<boolean> {
+    const response = await axios
+      .post<{ message: string }>(baseUrl + "/security/recover-password", {
+        email: userEmail,
+        password: newPassword,
+        keys,
+      })
+      .then((data) => data.data);
+    try {
+      if (response.message) {
+        alert(response.message);
+        return false;
+      } else {
+        alert("Password updated!");
+        return true;
+      }
+    } catch (err) {
+      alert("Password updated!");
+      return true;
+    }
   }
 }
