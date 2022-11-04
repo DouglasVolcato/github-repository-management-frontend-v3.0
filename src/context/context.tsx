@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useState } from "react";
 import { Note } from "../protocols/note";
 import { Repository } from "../protocols/repository";
+import { UserPreviewBody } from "../protocols/userPreviewBody";
 import { Api } from "../utils/api";
 
 interface ContextProps {
@@ -11,6 +12,8 @@ interface ContextProps {
   addAllNotes: () => void;
   deleteNote: (noteName: string) => void;
   editNote: (noteName: string | undefined, noteBody: Note | any) => void;
+  setLoggedUser: () => void;
+  getUser: () => UserPreviewBody;
 }
 
 const defaultValue = {
@@ -21,6 +24,8 @@ const defaultValue = {
   addAllNotes: () => {},
   deleteNote: (noteName: string) => {},
   editNote: (noteName: string | undefined, noteBody: Note | any) => {},
+  setLoggedUser: () => {},
+  getUser: () => ({ id: "", name: "", email: "", photo: "" }),
 };
 
 export const ClientContext = createContext<ContextProps>(defaultValue);
@@ -32,12 +37,14 @@ interface Props {
 interface State {
   repositories: Repository[];
   notes: Note[];
+  user: UserPreviewBody;
 }
 
 export function ClientProvider({ children }: Props) {
   const [client, setClient] = useState<State>({
     repositories: [],
     notes: [],
+    user: { id: "", name: "", email: "", photo: "" },
   });
 
   async function addRepositories(userName: string) {
@@ -137,6 +144,21 @@ export function ClientProvider({ children }: Props) {
     }, 3000);
   }
 
+  async function setLoggedUser() {
+    Api.getUserById()
+      .then((data) => setClient({ ...client, user: data }))
+      .catch((err) =>
+        setClient({
+          ...client,
+          user: { id: "", name: "", email: "", photo: "" },
+        })
+      );
+  }
+
+  function getUser() {
+    return client.user;
+  }
+
   return (
     <ClientContext.Provider
       value={{
@@ -147,6 +169,8 @@ export function ClientProvider({ children }: Props) {
         addAllNotes,
         deleteNote,
         editNote,
+        setLoggedUser,
+        getUser,
       }}
     >
       {children}
