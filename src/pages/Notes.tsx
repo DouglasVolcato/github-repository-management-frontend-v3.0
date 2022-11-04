@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CardBody } from "../components/CardBody";
 import { NoteCard } from "../components/NoteCard";
 import { PageTitle } from "../components/PageTitle";
