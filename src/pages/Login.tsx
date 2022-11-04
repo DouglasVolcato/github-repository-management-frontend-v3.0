@@ -98,7 +98,9 @@ export function Login() {
             }}
             secondButtonName={"Delete"}
             secondButtonFunction={() => {
-              Api.deleteUser().then(() => window.location.reload());
+              if (window.confirm("Are you sure to delete your profile?")) {
+                Api.deleteUser().then(() => window.location.reload());
+              }
             }}
             secondButtonColor={"darkred"}
             thirdButtonName={"X"}
