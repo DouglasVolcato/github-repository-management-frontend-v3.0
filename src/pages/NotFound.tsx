@@ -8,7 +8,7 @@ export default function NotFound() {
       <PageTitle name="Page not found" />
       <UserImage
         link={
-          "https://i.pinimg.com/originals/b3/5e/73/b35e73063c8e30f2bc49f0a2507fa200.jpg"
+          "https://github.com/DouglasVolcato/github-repository-management-frontend-v3.0/blob/main/src/public/images/hiddenCat.jpg?raw=true"
         }
       />
     </div>
