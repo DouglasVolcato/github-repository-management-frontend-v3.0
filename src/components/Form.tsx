@@ -5,6 +5,10 @@ interface Props {
   setStateFunction: (param: any) => void;
   buttonName: string;
   buttonFunction: () => void;
+  secondButtonName?: string;
+  secondButtonFunction?: () => void;
+  thirdButtonName?: string;
+  thirdButtonFunction?: () => void;
 }
 
 export function Form({
@@ -12,6 +16,10 @@ export function Form({
   setStateFunction,
   buttonName,
   buttonFunction,
+  secondButtonName,
+  secondButtonFunction,
+  thirdButtonName,
+  thirdButtonFunction,
 }: Props) {
   const fields = Object.keys(state);
   const modifiedState = { ...state };
@@ -38,6 +46,10 @@ export function Form({
   const labelStyles = {
     color: "white",
     fontWeight: "bold",
+  };
+  const divButtonsStyles = {
+    display: "flex",
+    justifyContent: "space-evenly",
   };
 
   function setFirstLetterToUpperCase(text: string) {
@@ -97,7 +109,24 @@ export function Form({
             )}
           </div>
         ))}
-        <Button name={buttonName} onClickFunctions={[() => buttonFunction()]} />
+        <div style={divButtonsStyles}>
+          <Button
+            name={buttonName}
+            onClickFunctions={[() => buttonFunction()]}
+          />
+          {secondButtonName && secondButtonFunction && (
+            <Button
+              name={secondButtonName}
+              onClickFunctions={[() => secondButtonFunction()]}
+            />
+          )}
+          {thirdButtonName && thirdButtonFunction && (
+            <Button
+              name={thirdButtonName}
+              onClickFunctions={[() => thirdButtonFunction()]}
+            />
+          )}
+        </div>
       </>
     </form>
   );
