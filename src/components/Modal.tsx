@@ -19,12 +19,10 @@ export function Modal({ children }: Props) {
   };
 
   const modalStyles = {
-    width: "max-content",
+    height: "fit-content",
     margin: "auto",
-    border: "solid 2px black",
     padding: "10px",
-    backgroundColor: "rgb(216, 214, 106)",
-    boxShadow: "1px 1px 1px 1px rgb(71, 71, 71)",
+    backgroundColor: "rgba(0, 0, 0, 0)",
   };
 
   return (
