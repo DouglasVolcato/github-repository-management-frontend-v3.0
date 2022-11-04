@@ -81,13 +81,15 @@ export function ClientProvider({ children }: Props) {
   }
 
   async function deleteNote(noteName: string) {
-    offlineChecker();
-    const updatedNoteList = client.notes.filter(
-      (note) => note.name !== noteName
-    );
-    setClient({ ...client, notes: updatedNoteList });
-    await Api.deleteNote(noteName);
-    apiNotesSync();
+    if (window.confirm("Delete this note?")) {
+      offlineChecker();
+      const updatedNoteList = client.notes.filter(
+        (note) => note.name !== noteName
+      );
+      setClient({ ...client, notes: updatedNoteList });
+      await Api.deleteNote(noteName);
+      apiNotesSync();
+    }
   }
 
   async function editNote(
