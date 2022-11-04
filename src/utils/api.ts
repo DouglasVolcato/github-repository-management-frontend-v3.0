@@ -39,21 +39,31 @@ export class Api {
   static async makeRegistration(
     userBody: RegisterUserBody
   ): Promise<User | null> {
-    try {
-      const response = await axios.post<User>(
-        baseUrl + "/user/create-user",
-        userBody
-      );
-      if (response.status === 200) {
-        alert("Successfully registered!");
-      }
-      return response.data;
-    } catch (err) {
-      if (userBody.password.length < 7) {
-        alert("The password must have, at least, 6 characters.");
+    if (
+      userBody.email !== "" &&
+      userBody.name !== "" &&
+      userBody.password !== ""
+    ) {
+      if (userBody.password.length >= 6) {
+        try {
+          const response = await axios.post<User>(
+            baseUrl + "/user/create-user",
+            userBody
+          );
+          if (response.status === 200) {
+            alert("Successfully registered!");
+          }
+          return response.data;
+        } catch (err) {
+          alert("There was an error registering this user.");
+          return null;
+        }
       } else {
-        alert("Email already registered.");
+        alert("Your password must have, at least, 6 characters.");
+        return null;
       }
+    } else {
+      alert("Send, at least, name, email and password.");
       return null;
     }
   }

@@ -10,7 +10,7 @@ import { LoginUserBody } from "../protocols/loginUserBody";
 import { Api } from "../utils/api";
 
 export function Login() {
-  const { getUser, setLoggedUser } = useClient();
+  const { getUser, setLoggedUser, addAllNotes } = useClient();
   const [loginInfo, setLoginInfo] = useState<LoginUserBody>({
     email: "",
     password: "",
@@ -18,25 +18,38 @@ export function Login() {
   const [user, setUser] = useState<any>(getUser());
   const [openModal, setOpenModal] = useState<boolean>(false);
 
+  useEffect(() => {
+    setLoggedUser();
+    addAllNotes();
+  }, []);
+
   async function makeLogin() {
-    await Api.makeLogin(loginInfo)
-      .then(() => {
-        Api.getUserById().then((data) =>
-          setUser({
-            name: data.name,
-            email: data.email,
-            password: "",
-            photo: data.photo,
-          })
-        );
-        setLoggedUser();
-        alert("Successfully logged in!");
-      })
-      .catch((err) => {
-        setLoggedUser();
-        setUser({ name: "", email: "", password: "", photo: "" });
-        alert("There was an error during login.");
-      });
+    if (
+      loginInfo.email &&
+      loginInfo.password &&
+      loginInfo.password.length >= 6
+    ) {
+      await Api.makeLogin(loginInfo)
+        .then(() => {
+          Api.getUserById().then((data) =>
+            setUser({
+              name: data.name,
+              email: data.email,
+              password: "",
+              photo: data.photo,
+            })
+          );
+          setLoggedUser();
+          alert("Successfully logged in!");
+        })
+        .catch((err) => {
+          setLoggedUser();
+          setUser({ name: "", email: "", password: "", photo: "" });
+          alert("There was an error during login.");
+        });
+    } else {
+      alert("Invalid login credentials.");
+    }
   }
 
   useEffect(() => {
@@ -65,6 +78,8 @@ export function Login() {
           <Button
             name={"Logged as " + user?.name}
             onClickFunctions={[() => setOpenModal(true)]}
+            color={"darkgreen"}
+            borderColor={"gold"}
           />
         </CardBody>
       ) : (
@@ -85,8 +100,10 @@ export function Login() {
             secondButtonFunction={() => {
               Api.deleteUser().then(() => window.location.reload());
             }}
+            secondButtonColor={"darkred"}
             thirdButtonName={"X"}
             thirdButtonFunction={() => setOpenModal(false)}
+            thirdButtonColor={"grey"}
           />
         </Modal>
       )}
