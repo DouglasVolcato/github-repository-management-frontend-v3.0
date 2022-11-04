@@ -7,9 +7,10 @@ interface Props {
 }
 
 export function AxiosInterceptor({ children }: Props) {
-  const { addAllNotes } = useClient();
+  const { addAllNotes, setLoggedUser } = useClient();
 
   useEffect(() => {
+    setLoggedUser();
     addAllNotes();
   }, []);
 
