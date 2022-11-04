@@ -4,15 +4,15 @@ interface Props {
 
 export function UserImage({ link }: Props) {
   const imageDivStyles = {
-    width: "95%",
+    width: "fit-content",
     display: "flex",
     justifyContent: "center",
-    margin: "20px",
+    margin: "auto",
+    borderRadius: "5%",
   };
   const imageStyles = {
     width: "250px",
-    minWidth: "10%",
-    maxWidth: "80%",
+    maxWidth: "80vw",
     borderRadius: "5%",
   };
 
