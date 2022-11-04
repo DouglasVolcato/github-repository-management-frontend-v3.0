@@ -45,6 +45,7 @@ export function RepositoryCard({
         <Button
           name={"Access"}
           onClickFunctions={[() => window.open(html_url)]}
+          color={"darkblue"}
         />
         <Button
           name={"Add note"}

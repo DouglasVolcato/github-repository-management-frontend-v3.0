@@ -5,10 +5,13 @@ interface Props {
   setStateFunction: (param: any) => void;
   buttonName: string;
   buttonFunction: () => void;
+  buttonColor?: string;
   secondButtonName?: string;
   secondButtonFunction?: () => void;
+  secondButtonColor?: string;
   thirdButtonName?: string;
   thirdButtonFunction?: () => void;
+  thirdButtonColor?: string;
 }
 
 export function Form({
@@ -16,10 +19,13 @@ export function Form({
   setStateFunction,
   buttonName,
   buttonFunction,
+  buttonColor,
   secondButtonName,
   secondButtonFunction,
+  secondButtonColor,
   thirdButtonName,
   thirdButtonFunction,
+  thirdButtonColor,
 }: Props) {
   const fields = Object.keys(state);
   const modifiedState = { ...state };
@@ -38,12 +44,12 @@ export function Form({
     width: "250px",
     backgroundColor: "#464646",
     color: "white",
-    maxWidth: "80vw",
     margin: "5px",
     boxShadow: "1px 2px 2px 1px #353535",
     padding: "5px",
   };
   const labelStyles = {
+    fontSize: "15px",
     color: "white",
     fontWeight: "bold",
   };
@@ -113,17 +119,20 @@ export function Form({
           <Button
             name={buttonName}
             onClickFunctions={[() => buttonFunction()]}
+            color={buttonColor ?? ""}
           />
           {secondButtonName && secondButtonFunction && (
             <Button
               name={secondButtonName}
               onClickFunctions={[() => secondButtonFunction()]}
+              color={secondButtonColor ?? ""}
             />
           )}
           {thirdButtonName && thirdButtonFunction && (
             <Button
               name={thirdButtonName}
               onClickFunctions={[() => thirdButtonFunction()]}
+              color={thirdButtonColor ?? ""}
             />
           )}
         </div>

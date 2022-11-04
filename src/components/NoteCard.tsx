@@ -55,10 +55,12 @@ export function NoteCard({ noteBody }: Props) {
         <Button
           name={"Delete"}
           onClickFunctions={[() => deleteNote(noteBody.name)]}
+          color={"red"}
         />
         <Button
           name={"Edit"}
           onClickFunctions={[() => navigate("/note-edition/" + noteBody.name)]}
+          color={"gray"}
         />
       </div>
     </div>
