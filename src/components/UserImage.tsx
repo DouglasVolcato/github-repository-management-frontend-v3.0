@@ -18,7 +18,7 @@ export function UserImage({ link }: Props) {
 
   return (
     <div style={imageDivStyles}>
-      <img style={imageStyles} src={link} />;
+      <img style={imageStyles} src={link} />
     </div>
   );
 }
