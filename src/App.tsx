@@ -8,6 +8,7 @@ import { ClientProvider } from "./context/context";
 import { Login } from "./pages/Login";
 import { NoteEdition } from "./pages/NoteEdition";
 import { Notes } from "./pages/Notes";
+import NotFound from "./pages/NotFound";
 import { Register } from "./pages/Register";
 import { Repositories } from "./pages/Repositories";
 import "./styles/App.css";
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <Route path="/notes" element={<Notes />} />
             <Route path="/repositories" element={<Repositories />} />
             <Route path="/note-edition/:noteName" element={<NoteEdition />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </BrowserRouter>
