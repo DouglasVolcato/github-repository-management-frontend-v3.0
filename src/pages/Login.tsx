@@ -29,7 +29,7 @@ export function Login() {
     reference_3: "",
   });
 
-  const [references, setReferences] = useState<string[]>([]);
+  const [references, setReferences] = useState<string[]>();
   const [passwordRecoveryModal, setPasswordRecoveryModal] =
     useState<boolean>(false);
   const [passwordRecoveryEmail, setPasswordRecoveryEmail] = useState({
@@ -141,7 +141,7 @@ export function Login() {
               borderColor={"gold"}
             />
           </CardBody>
-          {references.length === 0 ? (
+          {references && references.length === 0 ? (
             <CardBody>
               <Button
                 name="Enable extra security"
