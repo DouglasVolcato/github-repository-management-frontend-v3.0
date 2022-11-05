@@ -5,7 +5,7 @@ Repository management service for Github repositories - Frontend.
 - [How to run this project](#run)
 - [How to use this project](#use)
   - [Register](#register)
-  - [Register](#login)
+  - [Login](#login)
   - [Update profile](#update-profile)
   - [Repositories](#repositories)
   - [Notes](#notes)
