@@ -16,7 +16,7 @@ Repository management service for Github repositories - Frontend.
 <div id='deploy'/>
 
 ## Project Deploy
-Deploy link: [Vercel](https://github-repository-management-frontend-v3-0-cc9hzi81s.vercel.app)
+Deploy link: [Vercel](https://github-repository-management-frontend-v3-0.vercel.app)
 
 <div id='run'/>
 
