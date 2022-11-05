@@ -46,6 +46,14 @@ npm run dev
 
 ![notes-image](https://github.com/DouglasVolcato/github-repository-management-frontend-v3.0/blob/main/src/public/images/documentation-images/notes.PNG?raw=true)
 
+> It is also possible to recover your password if you forget it. In order to unlock this feature, first you have to create 3 security keys with their references clicking in the button Enable extra security.
+
+![security-keys-image](https://github.com/DouglasVolcato/github-repository-management-frontend-v3.0/blob/main/src/public/images/documentation-images/securityKeys.PNG?raw=true)
+
+> Given that you have the security keys vinculated to your profile, now you can recover your password by clicking the corresponding button in the Login page.
+
+![password-recovery](https://github.com/DouglasVolcato/github-repository-management-frontend-v3.0/blob/main/src/public/images/documentation-images/passwordRecovery.PNG?raw=true)
+
 <div id='creator'/>
 
 ## Project creator
